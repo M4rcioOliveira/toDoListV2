@@ -1,0 +1,78 @@
+<div class="menu">
+  <button
+    id="btnMenu"
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item disabled>
+      <mat-icon>notifications</mat-icon>
+      <span>Remember</span>
+    </button>
+  </mat-menu>
+</div>
+
+<div class="centro">
+  <input id="inputCriarTask"t ype="text" placeholder="enter the task and press enter" (keyup.enter)="newTask()" [(ngModel)]="task"/>
+</div>
+
+<div class="centro">
+  <div class="example-container">
+    <h2 id="h2OnHold">ON-HOLD</h2>
+    <div class="scrollList">
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doingList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          {{ item }} <button id="btnLixeira" (click)="removeTask(item)">  <img src="assets/lixeira.png" height="20px" /> </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2 id="h2Progress">IN-PROGRESS</h2>
+
+    <div class="scrollList">
+      <div
+        cdkDropList
+        #doingList="cdkDropList"
+        [cdkDropListData]="doing"
+        [cdkDropListConnectedTo]="[doneList, todoList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of doing" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2 id="h2Done">DONE</h2>
+
+    <div class="scrollList">
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="[]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of done" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
